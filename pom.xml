@@ -6,20 +6,20 @@
 	<groupId>de.labathome</groupId>
 	<artifactId>de-labathome-parent</artifactId>
 	<version>1.0.0</version>
-  <packaging>pom</packaging>
-	
+	<packaging>pom</packaging>
+
 	<name>de-labathome-parent</name>
 	<description>The common parent POM for artifacts under de.labathome.</description>
 
-  <properties>
+	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <jonathanschilling.git.url>https://github.com/jonathanschilling/</jonathanschilling.git.url>
+		<jonathanschilling.git.url>https://github.com/jonathanschilling/</jonathanschilling.git.url>
 		<jonathanschilling.git.root>scm:git:ssh://github.com:jonathanschilling/</jonathanschilling.git.root>
 		<junit.jupiter.version>5.6.0</junit.jupiter.version>
 		<junit.platform.version>1.6.0</junit.platform.version>
 	</properties>
 
-  <url>${jonathanschilling.git.url}${project.name}</url>
+	<url>${jonathanschilling.git.url}${project.name}</url>
 	<scm>
 		<connection>${jonathanschilling.git.root}${project.name}.git</connection>
 		<developerConnection>${jonathanschilling.git.root}${project.name}.git</developerConnection>
@@ -30,7 +30,7 @@
 		<system>GitLab Issues</system>
 	</issueManagement>
 
-  <developers>
+	<developers>
 		<developer>
 			<email>jonathan.schilling@mail.de</email>
 			<name>Jonathan Schilling</name>
@@ -39,22 +39,22 @@
 		</developer>
 	</developers>
 
-  <licenses>
+	<licenses>
 		<license>
-			<name>MIT License</name>
-			<url>https://opensource.org/licenses/MIT</url>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
 
 	<dependencies>
-	  <dependency>
-		  <groupId>org.junit.jupiter</groupId>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
 			<version>${junit.jupiter.version}</version>
 			<scope>test</scope>
 		</dependency>
-			<dependency>
+		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-params</artifactId>
 			<version>${junit.jupiter.version}</version>
@@ -78,7 +78,7 @@
 
 	<build>
 		<plugins>
-      <plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.1</version>
@@ -87,8 +87,8 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
-      
-      <plugin>
+
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
 				<version>3.2.0</version>
@@ -125,7 +125,7 @@
 				</executions>
 			</plugin>
 
-      <plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>3.1.1</version>
@@ -154,8 +154,8 @@
 					</execution>
 				</executions>
 			</plugin>
-      
-      <plugin>
+
+			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>buildnumber-maven-plugin</artifactId>
 				<version>1.4</version>
@@ -172,7 +172,7 @@
 					<doUpdate>true</doUpdate>
 				</configuration>
 			</plugin>
-      
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
@@ -191,13 +191,13 @@
 					</archive>
 				</configuration>
 			</plugin>
-      
-      <plugin>
+
+			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.22.2</version>
 			</plugin>
-      
-      <plugin>
+
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-gpg-plugin</artifactId>
 				<version>1.6</version>
@@ -215,7 +215,7 @@
 					</execution>
 				</executions>
 			</plugin>
-      
+
 			<plugin>
 				<groupId>org.sonatype.plugins</groupId>
 				<artifactId>nexus-staging-maven-plugin</artifactId>
@@ -227,7 +227,7 @@
 					<autoReleaseAfterClose>true</autoReleaseAfterClose>
 				</configuration>
 			</plugin>
-     
+
 		</plugins>
 	</build>
 </project>
