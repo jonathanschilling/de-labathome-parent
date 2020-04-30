@@ -1,0 +1,233 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>de.labathome</groupId>
+	<artifactId>de-labathome-parent</artifactId>
+	<version>1.0.0</version>
+  <packaging>pom</packaging>
+	
+	<name>de-labathome-parent</name>
+	<description>The common parent POM for artifacts under de.labathome.</description>
+
+  <properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <jonathanschilling.git.url>https://github.com/jonathanschilling/</jonathanschilling.git.url>
+		<jonathanschilling.git.root>scm:git:ssh://github.com:jonathanschilling/</jonathanschilling.git.root>
+		<junit.jupiter.version>5.6.0</junit.jupiter.version>
+		<junit.platform.version>1.6.0</junit.platform.version>
+	</properties>
+
+  <url>${jonathanschilling.git.url}${project.name}</url>
+	<scm>
+		<connection>${jonathanschilling.git.root}${project.name}.git</connection>
+		<developerConnection>${jonathanschilling.git.root}${project.name}.git</developerConnection>
+		<url>${jonathanschilling.git.url}${project.name}/tree/master</url>
+	</scm>
+	<issueManagement>
+		<url>${jonathanschilling.git.url}${project.name}/issues</url>
+		<system>GitLab Issues</system>
+	</issueManagement>
+
+  <developers>
+		<developer>
+			<email>jonathan.schilling@mail.de</email>
+			<name>Jonathan Schilling</name>
+			<url>http://labathome.de</url>
+			<id>jonathanschilling</id>
+		</developer>
+	</developers>
+
+  <licenses>
+		<license>
+			<name>MIT License</name>
+			<url>https://opensource.org/licenses/MIT</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<dependencies>
+	  <dependency>
+		  <groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>${junit.jupiter.version}</version>
+			<scope>test</scope>
+		</dependency>
+			<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-params</artifactId>
+			<version>${junit.jupiter.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-launcher</artifactId>
+			<version>${junit.platform.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<distributionManagement>
+		<repository>
+			<id>ossrh</id>
+			<name>Sonatype OSSRH</name>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
+
+	<build>
+		<plugins>
+      <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+      
+      <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.2.0</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>verify</phase>
+						<configuration>
+							<archive>
+								<!-- some extra info into Manifest.MF of sources jar -->
+								<!-- version 3.2.0 does not seem to honor the following entries completely, 
+									so try to manually implement them below -->
+								<manifest>
+									<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+									<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+								</manifest>
+								<manifestEntries>
+									<Build-Revision>${buildNumber}</Build-Revision>
+									<Build-Branch>${scmBranch}</Build-Branch>
+									<Build-Timestamp>${maven.build.timestamp}</Build-Timestamp>
+
+									<!-- manual fix for addDefaultImplementationEntries and addDefaultSpecificationEntries -->
+									<Built-By>${user.name}</Built-By>
+									<Implementation-Vendor-Id>${project.groupId}</Implementation-Vendor-Id>
+									<Build-Jdk>${java.version}</Build-Jdk>
+									<Implementation-URL>${project.url}</Implementation-URL>
+								</manifestEntries>
+							</archive>
+						</configuration>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+      <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.1.1</version>
+				<executions>
+					<execution>
+						<configuration>
+							<archive>
+								<manifest>
+									<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+									<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+								</manifest>
+								<manifestEntries>
+									<Build-Revision>${buildNumber}</Build-Revision>
+									<Build-Branch>${scmBranch}</Build-Branch>
+									<Build-Timestamp>${maven.build.timestamp}</Build-Timestamp>
+								</manifestEntries>
+							</archive>
+							<!-- From http://stackoverflow.com/questions/15886209/maven-is-not-working-in-java-8-when-javadoc-tags-are-incomplete -->
+							<!-- This disables errors in Javadoc comments. Comment out to see 
+								this errors and fix them. -->
+							<doclint>none</doclint>
+						</configuration>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+      
+      <plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>buildnumber-maven-plugin</artifactId>
+				<version>1.4</version>
+				<executions>
+					<execution>
+						<phase>validate</phase>
+						<goals>
+							<goal>create</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<doCheck>true</doCheck>
+					<doUpdate>true</doUpdate>
+				</configuration>
+			</plugin>
+      
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.1.1</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+						</manifest>
+						<manifestEntries>
+							<Build-Revision>${buildNumber}</Build-Revision>
+							<Build-Branch>${scmBranch}</Build-Branch>
+							<Build-Timestamp>${maven.build.timestamp}</Build-Timestamp>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+      
+      <plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.22.2</version>
+			</plugin>
+      
+      <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+						<configuration>
+							<keyname>${gpg.keyname}</keyname>
+							<passphraseServerId>${gpg.keyname}</passphraseServerId>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+      
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.8</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+				</configuration>
+			</plugin>
+     
+		</plugins>
+	</build>
+</project>
