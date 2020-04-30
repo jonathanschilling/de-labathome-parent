@@ -6,5 +6,5 @@ The parent POM for Maven artifacts under `de.labathome`:
   <groupId>de.labathome</groupId>
   <artifactId>de-labathome-parent</artifactId>
   <version>1.0.0</version>
-<parent>
+</parent>
 ```
