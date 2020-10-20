@@ -19,6 +19,9 @@
 		<junit.platform.version>1.7.0</junit.platform.version>
 		
 		<java.release>14</java.release>
+		
+		<!-- put e.g. - - enable-preview here -->
+		<java.additionalArgs></java.additionalArgs>
 	</properties>
 
 	<url>${jonathanschilling.git.url}${project.name}</url>
@@ -116,9 +119,7 @@
 				<configuration>
 					<source>${java.release}</source>
 					<target>${java.release}</target>
-					<compilerArgs>
-						--enable-preview
-					</compilerArgs>
+					<compilerArgs>${java.additionalArgs}</compilerArgs>
 				</configuration>
 			</plugin>
 
@@ -184,7 +185,7 @@
 							
 							<!-- https://stackoverflow.com/questions/63835578/maven-javadoc-enable-preview -->
 							<release>${java.release}</release>
-							<additionalOptions>--enable-preview</additionalOptions>
+							<additionalOptions>${java.additionalArgs}</additionalOptions>
 						</configuration>
 						<goals>
 							<goal>jar</goal>
@@ -235,7 +236,7 @@
 				<version>3.0.0-M4</version>
 				<configuration>
 					<skipTests>${skipTests}</skipTests>
-					<argLine>--enable-preview</argLine>
+					<argLine>${java.additionalArgs}</argLine>
 				</configuration>
 			</plugin>
 
