@@ -5,7 +5,7 @@
 
 	<groupId>de.labathome</groupId>
 	<artifactId>de-labathome-parent</artifactId>
-	<version>1.0.2</version>
+	<version>1.0.3</version>
 	<packaging>pom</packaging>
 
 	<name>de-labathome-parent</name>
@@ -17,7 +17,7 @@
 		<jonathanschilling.git.root>scm:git:ssh://git@github.com/jonathanschilling/</jonathanschilling.git.root>
 		<junit.jupiter.version>5.8.2</junit.jupiter.version>
 		<junit.platform.version>1.8.2</junit.platform.version>
-		<java_version>11</java_version>
+		<java_version>17</java_version>
 	</properties>
 
 	<url>${jonathanschilling.git.url}${project.name}</url>
